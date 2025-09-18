@@ -1,27 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Document>
   <Engineering version="V20" />
-  <SW.Blocks.FC ID="0">
+  <SW.Blocks.OB ID="0">
     <AttributeList>
       <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
   <Section Name="Input">
-    <Member Name="ENTRADA" Datatype="Bool" />
+    <Member Name="Initial_Call" Datatype="Bool" Informative="true">
+      <Comment>
+        <MultiLanguageText Lang="en-US">Initial call of this OB</MultiLanguageText>
+      </Comment>
+    </Member>
+    <Member Name="Remanence" Datatype="Bool" Informative="true">
+      <Comment>
+        <MultiLanguageText Lang="en-US">=True, if remanent data are available</MultiLanguageText>
+      </Comment>
+    </Member>
   </Section>
-  <Section Name="Output">
-    <Member Name="SALIDA" Datatype="Bool" />
-  </Section>
-  <Section Name="InOut" />
   <Section Name="Temp" />
   <Section Name="Constant" />
-  <Section Name="Return">
-    <Member Name="Ret_Val" Datatype="Void" />
-  </Section>
 </Sections></Interface>
       <MemoryLayout>Optimized</MemoryLayout>
-      <Name>FC_Prueba</Name>
+      <Name>Main</Name>
       <Namespace />
       <Number>1</Number>
       <ProgrammingLanguage>LAD</ProgrammingLanguage>
+      <SecondaryType>ProgramCycle</SecondaryType>
       <SetENOAutomatically>false</SetENOAutomatically>
     </AttributeList>
     <ObjectList>
@@ -39,49 +42,35 @@
         <AttributeList>
           <NetworkSource><FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
   <Parts>
-    <Access Scope="LocalVariable" UId="21">
+    <Access Scope="GlobalVariable" UId="21">
       <Symbol>
-        <Component Name="ENTRADA" />
+        <Component Name="Input_10" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="22">
       <Symbol>
-        <Component Name="Clock_1Hz" />
+        <Component Name="Output_10" />
       </Symbol>
     </Access>
-    <Access Scope="LocalVariable" UId="23">
-      <Symbol>
-        <Component Name="SALIDA" />
-      </Symbol>
-    </Access>
-    <Part Name="Contact" UId="24" />
-    <Part Name="Contact" UId="25" />
-    <Part Name="Coil" UId="26" />
+    <Call UId="23">
+      <CallInfo Name="FC_Prueba_1" BlockType="FC">
+        <Parameter Name="ENTRADA_PRUEBA" Section="Input" Type="Bool" />
+        <Parameter Name="SALIDA" Section="Output" Type="Bool" />
+      </CallInfo>
+    </Call>
   </Parts>
   <Wires>
-    <Wire UId="27">
+    <Wire UId="24">
       <Powerrail />
-      <NameCon UId="24" Name="in" />
+      <NameCon UId="23" Name="en" />
     </Wire>
-    <Wire UId="28">
+    <Wire UId="25">
       <IdentCon UId="21" />
-      <NameCon UId="24" Name="operand" />
+      <NameCon UId="23" Name="ENTRADA_PRUEBA" />
     </Wire>
-    <Wire UId="29">
-      <NameCon UId="24" Name="out" />
-      <NameCon UId="25" Name="in" />
-    </Wire>
-    <Wire UId="30">
+    <Wire UId="26">
+      <NameCon UId="23" Name="SALIDA" />
       <IdentCon UId="22" />
-      <NameCon UId="25" Name="operand" />
-    </Wire>
-    <Wire UId="31">
-      <NameCon UId="25" Name="out" />
-      <NameCon UId="26" Name="in" />
-    </Wire>
-    <Wire UId="32">
-      <IdentCon UId="23" />
-      <NameCon UId="26" Name="operand" />
     </Wire>
   </Wires>
 </FlgNet></NetworkSource>
@@ -143,11 +132,11 @@
           <MultilingualTextItem ID="E" CompositionName="Items">
             <AttributeList>
               <Culture>en-US</Culture>
-              <Text />
+              <Text>"Main Program Sweep (Cycle)"</Text>
             </AttributeList>
           </MultilingualTextItem>
         </ObjectList>
       </MultilingualText>
     </ObjectList>
-  </SW.Blocks.FC>
+  </SW.Blocks.OB>
 </Document>
